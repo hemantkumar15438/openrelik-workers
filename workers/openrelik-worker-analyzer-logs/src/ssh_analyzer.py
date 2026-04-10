@@ -92,29 +92,29 @@ class LinuxSSHAnalysisTask:
     MAX_LOG_YEAR = 9999
 
     # Standard SSH authentication log
-    _MONTH = pyparsing.Word(pyparsing.alphas, max=3).set_results_name("month")
-    _DAY = pyparsing.Word(pyparsing.nums, max=2).set_results_name("day")
-    _TIME = pyparsing.Word(pyparsing.printables, max=9).set_results_name("time")
+    _MONTH = pyparsing.Word(pyparsing.alphas, max=3).setResultsName("month")
+    _DAY = pyparsing.Word(pyparsing.nums, max=2).setResultsName("day")
+    _TIME = pyparsing.Word(pyparsing.printables, max=9).setResultsName("time")
 
     _DATETIME_DEFAULT = _MONTH + _DAY + _TIME
 
     # Default datetime format for OpenSUSE
     _DATETIME_SUSE = pyparsing.Word(pyparsing.printables)
-    _DATETIME = (_DATETIME_DEFAULT | _DATETIME_SUSE).set_results_name("datetime")
+    _DATETIME = (_DATETIME_DEFAULT | _DATETIME_SUSE).setResultsName("datetime")
 
-    _HOSTNAME = pyparsing.Word(pyparsing.printables).set_results_name("hostname")
-    _PID = pyparsing.Word(pyparsing.nums).set_results_name("pid")
+    _HOSTNAME = pyparsing.Word(pyparsing.printables).setResultsName("hostname")
+    _PID = pyparsing.Word(pyparsing.nums).setResultsName("pid")
     _AUTHENTICATION_METHOD = (
         pyparsing.Keyword("password") | pyparsing.Keyword("publickey")
-    ).set_results_name("auth_method")
-    _USERNAME = pyparsing.Word(pyparsing.printables).set_results_name("username")
-    _SOURCE_IP = pyparsing.Word(pyparsing.printables).set_results_name("source_ip")
-    _SOURCE_PORT = pyparsing.Word(pyparsing.nums, max=5).set_results_name("source_port")
-    _PROTOCOL = pyparsing.Word(pyparsing.printables).set_results_name("protocol")
-    _FINGERPRINT_TYPE = pyparsing.Word(pyparsing.alphanums).set_results_name(
+    ).setResultsName("auth_method")
+    _USERNAME = pyparsing.Word(pyparsing.printables).setResultsName("username")
+    _SOURCE_IP = pyparsing.Word(pyparsing.printables).setResultsName("source_ip")
+    _SOURCE_PORT = pyparsing.Word(pyparsing.nums, max=5).setResultsName("source_port")
+    _PROTOCOL = pyparsing.Word(pyparsing.printables).setResultsName("protocol")
+    _FINGERPRINT_TYPE = pyparsing.Word(pyparsing.alphanums).setResultsName(
         "fingerprint_type"
     )
-    _FINGERPRINT = pyparsing.Word(pyparsing.printables).set_results_name("fingerprint")
+    _FINGERPRINT = pyparsing.Word(pyparsing.printables).setResultsName("fingerprint")
 
     # SSH event grammar
     _LOGIN_GRAMMAR = (
@@ -340,7 +340,7 @@ class LinuxSSHAnalysisTask:
             for key, value in self.MESSAGE_GRAMMAR.items():
                 if key.lower() == sshd_message_type.lower():
                     try:
-                        parsed_ssh_event = value.parse_string(line)
+                        parsed_ssh_event = value.parseString(line)
 
                         # handle date/time
                         dt_object = self.parse_message_datetime(

@@ -9,7 +9,10 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     python3-poetry \
-    # Add your dependencies here
+    sudo \
+    fdisk \
+    qemu-utils \
+    ntfs-3g \
     && rm -rf /var/lib/apt/lists/*
 
 # Configure debugging
